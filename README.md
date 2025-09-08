@@ -10,6 +10,7 @@ The layout is shown in the following images:
 <img width="1272" height="667" alt="admin_home_view" src="https://github.com/user-attachments/assets/853ae3a8-2797-4f2c-b10a-d27b8d38770d" />
 <img width="1275" height="669" alt="cafe_view_regular_user" src="https://github.com/user-attachments/assets/a395ebc1-c436-4828-b8b3-6b315f4476ff" />
 <img width="1276" height="670" alt="cafe_view_as_admin" src="https://github.com/user-attachments/assets/a137ae76-f5a1-4841-99a4-af7510d2513e" />
+<img width="1265" height="669" alt="post_comm" src="https://github.com/user-attachments/assets/124dbf68-e482-4327-b67a-1d271bdfcd4a" />
 
 
 ## Installation
