@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Cafe editing{% endblock %}
+
+{% block content %} 
+
+<!-- Page Header -->
+ <h3>Edit Cafe</h3>
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
+  <div class="row align-items-center g-lg-5 py-5"> 
+    <div class="col-lg-7 text-center text-lg-start">
+
+        <!-- Render edit cafe form -->
+            <div class="container" id="add_new_form">
+			        <form class="send-mail" method="POST" action="{{ url_for('edit_cafe', cafe_id=cafe.id) }}" novalidate>
+				      <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                
+                {{ form.cafe_name.label(class="form-label") }} <br> {{ form.cafe_name(class="form-control") }}
+                <p>
+                  {% for err in form.cafe_name.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+                
+                {{ form.location.label(class="form-label") }} <br> {{ form.location(class="form-control") }}
+                <p>
+                  {% for err in form.location.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.open.label(class="form-label") }} <br> {{ form.open(class="form-control") }}
+                <p>
+                  {% for err in form.open.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.close.label(class="form-label") }} <br> {{ form.close(class="form-control") }}
+                <p>
+                  {% for err in form.close.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.coffee_rating.label(class="form-label") }} <br> {{ form.coffee_rating(class="form-control") }}
+                <p>
+                  {% for err in form.coffee_rating.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.wifi_rating.label(class="form-label") }} <br> {{ form.wifi_rating(class="form-control") }}
+                <p>
+                  {% for err in form.wifi_rating.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.power_rating.label(class="form-label") }} <br> {{ form.power_rating(class="form-control") }}
+                <p>
+                  {% for err in form.power_rating.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+                {{ form.img_url.label(class="form-label") }} <br> {{ form.img_url(class="form-control") }}
+                <p>
+                  {% for err in form.img_url.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+                  
+                <div class="container" id="add_new_button">
+                  {{ form.submit(class="btn btn-outline-success btn-sm") }}
+                  {{ form.cancel(class="btn btn-outline-secondary btn-sm float-right", id="cancel-send") }}
+                </div>
+			        </form>
+            </div>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5"> 
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <img class="iasi-img mt-5" src="../static/assets/imgs/img1.jpg" height="500" width="600" alt="Culture Palace image">
+          </div> 
+        </div> 
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Coffee and Wifi{% endblock %}
+
+{% block content %} 
+
+<!-- Page Header -->
+<header>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Register</h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<br>
+<br>
+<div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
+  <div class="row align-items-center g-lg-5 py-5"> 
+    <div class="col-lg-7 text-center text-lg-start"> 
+      <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Historical Capital of Romania</h1> 
+      <p class="col-lg-10 fs-4">Iasi, is the third largest city in Romania and the seat of Iași County. 
+        Located in the historical region of Moldavia, it has traditionally been one of the leading centres of Romanian social, cultural, academic and artistic life. 
+        The city was the capital of the Principality of Moldavia from 1564 to 1859, then of the United Principalities from 1859 to 1862, and the capital of Romania from 1916 to 1918.</p> 
+    </div> 
+    <div class="col-md-10 mx-auto col-lg-5"> 
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Render registration form-->
+          <div class="container" id="registration-form">
+			      <form class="register" method="POST" action="{{ url_for('register') }}" novalidate>
+				      <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+						
+					    {{ form.email.label(class="form-label") }} <br> {{ form.email(class="form-control") }}
+                <p>
+                  {% for err in form.email.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+					    {{ form.password.label(class="form-label") }} <br> {{ form.password(class="form-control") }}
+                <p>
+                  {% for err in form.password.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+					    {{ form.name.label(class="form-label") }} <br> {{ form.name(class="form-control") }}
+                <p>
+                  {% for err in form.name.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+						
+
+					    <div class="container" id="register-button">
+						    {{ form.submit(class="btn btn-outline-success btn-sm") }}
+						    {{ form.cancel(class="btn btn-outline-secondary btn-sm float-right", id="cancel-send") }}
+					    </div>
+			      </form>
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  </div>
+</div>
+
+
+{% endblock %}

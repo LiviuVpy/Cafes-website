@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Coffee and Wifi{% endblock %}
+
+{% block content %} 
+
+<!-- Page Header -->
+<header>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Log in</h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<br>
+<br>
+<div class="container">
+    <div class="flashed-msg">
+      <!--A flash message here for users registering twice -->
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <p class="flash">{{ message }}</p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+</div>
+<div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
+  <div class="row align-items-center g-lg-5 py-5"> 
+    <div class="col-lg-7 text-center text-lg-start"> 
+      <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Warm Hospitality: A Home Away from Home</h1> 
+      <p class="col-lg-10 fs-4">Iași is a community that embraces diversity, where international students feel at home from the moment they arrive. 
+            You can experience the warm hospitality of the locals, engage with the community, 
+            discover Romanian traditions, and forge connections that extend far beyond the classroom.
+            Discover great places to spend your spare time, enjoy the days in breathtaking natural areas, or catch the movies and join the festivals all year long.</p>
+    </div> 
+    
+    <div class="col-md-10 mx-auto col-lg-5"> 
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Render registration form-->
+          <div class="container" id="login-form">
+			       <form class="login" method="POST" action="{{ url_for('login') }}" novalidate>
+				        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+              
+					      {{ form.email.label(class="form-label") }} <br> {{ form.email(class="form-control") }}
+                <p>
+                  {% for err in form.email.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+					      {{ form.password.label(class="form-label") }} <br> {{ form.password(class="form-control") }}
+                <p>
+                  {% for err in form.password.errors %}
+                  <span style="color:red">{{ err }}</span>
+                  {% endfor %}
+                </p>
+
+					      <div class="container" id="login-button">
+						      {{ form.submit(class="btn btn-outline-success btn-sm") }}
+						      {{ form.cancel(class="btn btn-outline-secondary btn-sm float-right", id="cancel-send") }}
+					      </div>
+			        </form>
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  </div>
+
+
+
+{% endblock %}

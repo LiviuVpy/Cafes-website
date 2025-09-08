@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}Cafe view{% endblock %}
+
+{% block content %} 
+
+<br>
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
+    <div class="row align-items-center g-lg-5 py-5"> 
+        <div class="col-lg-7 text-center text-lg-start"> 
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">{{cafe.cafe_name}}</h1> 
+        <div class="container">
+            <div class="flashed-msg">
+                <!--A flash message here for users registering twice -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="flash">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="bd-example m-0 border-0"> 
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Open</th>
+                    <th scope="col">Close</th>
+                    <th scope="col">Coffee rating</th>
+                    <th scope="col">Wifi Rating</th>
+                    <th scope="col">Power Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>{{cafe.open}}</td>
+                    <td>{{cafe.close}}</td>
+                    <td>{{cafe.coffee_rating}}</td>
+                    <td>{{cafe.wifi_rating}}</td>
+                    <td>{{cafe.power_rating}}</td>
+                    </tr>
+                </tbody>
+            </table> 
+        <a type="button" class="btn btn-outline-primary btn-sm"
+            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+            href=" {{ cafe.location }}">View Google Maps Location</a>
+
+        {% if current_user.id == 1 %}
+        
+            <a type="button" class="btn btn-outline-success btn-sm" 
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                href=" {{ url_for('edit_cafe', cafe_id=cafe.id) }}">Edit</a>
+            <a type="button" class="btn btn-outline-danger btn-sm" 
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                href=" {{ url_for('delete_cafe', cafe_id=cafe.id) }}">Delete</a>
+                
+        {% endif %}
+              
+        </div> 
+    </div> 
+    <div class="col-md-10 mx-auto col-lg-5"> 
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <img src={{ cafe.img_url }} style="background-image" height="400" width="500">
+        </div> 
+    </div> 
+    <div>
+        <form action="{{ url_for('show_cafe', cafe_id=cafe.id, is_comment=True) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <input type="hidden" name="is_comment" value="{{ is_comment }}">
+            <button  
+            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+            type="submit" class="btn btn-outline-dark btn-sm" >Comment</button>
+        </form>
+    </div>
+
+    {% if is_comment %}
+    <!-- Comments Area -->
+    <!-- CKEditor for commenting below -->
+    {{ ckeditor.load() }}
+    <!-- Configure CKEditor with the name of the form field from CommentForm -->
+    {{ ckeditor.config(name='body') }}
+    <!-- Form from CommentForm -->
+    <div class="container" id="login-form">
+		<form class="comment_form" method="POST" action="{{ url_for('show_cafe', cafe_id=cafe.id) }}" novalidate>
+			<input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+              
+				{{ form.body(class="form-control") }}
+						
+				<div class="container" id="login-button">
+					{{ form.submit(class="btn btn-outline-success btn-sm") }}
+					{{ form.cancel(class="btn btn-outline-secondary btn-sm float-right", id="cancel-send") }}
+				</div>
+		</form>
+    </div>
+    {% endif %}
+
+    
+    <div class="comment">
+        <!-- Show all the comments on a post -->
+        <ul class="commentList">
+            {% for comment in cafe.comments: %}
+            <li>
+                <div class="commentText">
+                    {{comment.text|safe}}
+                    <span class="date sub-text">Comment by: {{comment.comment_author.name}}</span>
+                    {% if current_user.id == 1 %}
+                    <a href=" {{ url_for('delete_comment', comment_id=comment.id, cafe_id=cafe.id ) }}" class="delete_button">Delete</a>
+                    {% endif %}
+                </div>
+            </li>
+            <hr>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Cafe and Wifi{% endblock %}
+
+{% block content %}
+
+
+<!-- Main Content-->
+<div class="container px-4 px-lg-5 ">
+  <div class="container gx-4 gx-lg-5 ">
+    <div class="col-md-12 col-lg-10 col-xl-10 ">
+      <div class="container" >
+      <p class="description" style="display: contents;">Wellcome,</p> 
+      <h3 style="font-style: italic;"> {{ current_user.name }}</h3> 
+      </div>     
+      <!-- New Cafe -->
+      <!-- Only show Create Cafe button if user id is 1 (admin user) -->
+      {% if current_user.id == 1: %}
+      <div class="d-flex justify-content-end mb-4">
+        <a
+          style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+          type="button" class="btn btn-outline-dark btn-sm float-right"
+          href="{{url_for('add_new_cafe')}}"
+          >Add New Cafe</a
+        >
+      </div>
+      {% endif %}
+
+      <!-- View all cafes-->
+      <div class="wrapper" id="wrapper">
+      {% for cafe in all_cafes %}
+          <div class="card" >
+            <div class="front" style="background-image: url('{{ cafe.img_url }}');">
+                <p class="large">{{ cafe.cafe_name }}</p>
+            </div>
+
+            <div class="back" style="background-color:bisque;">
+              <div class="container">
+                <div class="title">{{cafe.cafe_name}}</div>
+
+                <div class="open_label">Open:</div> 
+                <div class="open"><p>{{ cafe.open }}</p></div>
+
+                <div class="close_label">Close:</div>
+                <div class="close"><p>{{ cafe.close }}</p></div>
+
+                <div class="coffee_rating_label">Coffee rating</div>
+                <div class="coffee_rating"><p>{{ cafe.coffee_rating }}</p></div>
+                  
+                <div class="wifi_rating_label">Wifi Rating</div>
+                <div class="wifi_rating"><p>{{ cafe.wifi_rating }}</p></div>
+
+                <div class="power_rating_label">Power Rating</div>
+                <div class="power_rating">{{ cafe.power_rating }}</p></div>
+
+                <a 
+                  href=" {{ url_for('show_cafe', cafe_id=cafe.id) }}" 
+                  type="button" class="btn btn-outline-success btn-sm"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                >View</a>
+                
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+      </div>   
+    </div>
+
+  </div>
+  <!-- Pager-->
+  <footer class="footer">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          {% if prev_url %}
+            <a href="{{ prev_url }}"
+              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+              type="button" class="btn btn-outline-secondary btn-sm float-right">Previous page</a>
+          {% endif %}
+
+          {% if next_url %}
+            <a href="{{ next_url }}"
+              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+              type="button" class="btn btn-outline-secondary btn-sm float-right">Next page</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+    
+{% endblock %}
