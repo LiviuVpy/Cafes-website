@@ -18,7 +18,7 @@ class CafeForm(FlaskForm):
     cancel = SubmitField(label='Cancel')
 
 
-# TODO: Create a RegisterForm to register new users
+# RegisterForm to register new users
 class RegisterForm(FlaskForm):
     email = EmailField(label='Email', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
@@ -27,14 +27,14 @@ class RegisterForm(FlaskForm):
     cancel = SubmitField(label='Cancel')
     
 
-# TODO: Create a LoginForm to login existing users
+# LoginForm to login existing users
 class LoginForm(FlaskForm):
     email = EmailField(label='Email', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
     submit = SubmitField(label='Log In')
     cancel = SubmitField(label='Cancel')
 
-# TODO: Create a CommentForm so users can leave comments below posts
+# CommentForm so users can leave comments below a cafe
 class CommentForm(FlaskForm):
     body = CKEditorField("Comment Content", validators=[DataRequired()])
     submit = SubmitField('Submit')
