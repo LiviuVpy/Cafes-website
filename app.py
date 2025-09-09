@@ -27,7 +27,7 @@ app.config['MYSQL_CHARSET'] = 'utf8mb4'
 app.config['MYSQL_COLLATION'] = 'utf8mb4_unicode_ci'
 
 
-# TODO: Configure Flask-Login
+# Configure Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
