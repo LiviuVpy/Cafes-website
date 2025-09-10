@@ -91,7 +91,7 @@ class Comment(db.Model):
     #"users.id" The users refers to the tablename of the Users class.
     #"comments" refers to the comments property in the User class.
     author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
-    comment_author = relationship("User", back_populates="comments") # asta are atribut: 'comment_author.name'
+    comment_author = relationship("User", back_populates="comments")
     
     #***************Child Relationship*************#
     cafe_id: Mapped[str] = mapped_column(Integer, db.ForeignKey("cafe.id"))
